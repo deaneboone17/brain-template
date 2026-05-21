@@ -8,14 +8,20 @@ BRAIN_DIR="BRAIN_DIR_PLACEHOLDER"
 OUTPUT="$BRAIN_DIR/context/today.md"
 PRIORITIES="$BRAIN_DIR/context/priorities.md"
 
+# Section headers that morning-brief.sh parses from priorities.md.
+# If you rename these sections in priorities.md, update these variables to match.
+DEADLINES_HEADER="## Hard Deadlines"
+THIS_WEEK_HEADER="## This Week"
+
+# date '+format' is cross-platform (works on Mac BSD date and Linux GNU date)
 TODAY=$(date '+%A, %B %d, %Y')
 GENERATED=$(date '+%Y-%m-%d %I:%M %p %Z')
 
 # Parse Hard Deadlines section from priorities.md
-DEADLINES=$(awk '/^## Hard Deadlines/{found=1; next} found && /^## /{exit} found && /^- /{print}' "$PRIORITIES")
+DEADLINES=$(awk "/^${DEADLINES_HEADER//\//\\/}/{found=1; next} found && /^## /{exit} found && /^- /{print}" "$PRIORITIES")
 
 # Parse This Week tasks (non-completed rows)
-THIS_WEEK=$(awk '/^## This Week/{found=1; next} found && /^## /{exit} found && /^\|/{print}' "$PRIORITIES" | grep -v "~~" | grep -v "Status" | grep -v "^|-")
+THIS_WEEK=$(awk "/^${THIS_WEEK_HEADER//\//\\/}/{found=1; next} found && /^## /{exit} found && /^\|/{print}" "$PRIORITIES" | grep -v "~~" | grep -v "Status" | grep -v "^|-")
 
 # Fetch today's calendar events (optional — fails gracefully if not set up)
 CALENDAR=$(python3 "$BRAIN_DIR/tools/calendar_fetch.py" 2>/dev/null || echo "(Calendar unavailable — see README for setup)")

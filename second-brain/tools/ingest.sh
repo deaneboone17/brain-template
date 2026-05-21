@@ -10,6 +10,9 @@ BASENAME=$(basename "$SOURCE" | sed 's/\.[^.]*$//')
 STAGING="wiki/_staging/${BASENAME}.extraction.md"
 PROJECT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 
+# Ensure staging directory exists (git-ignored, won't survive a fresh clone)
+mkdir -p "$(dirname "$0")/../wiki/_staging"
+
 if [ ! -f "$SOURCE" ]; then
     echo "Error: Source file not found: $SOURCE"
     exit 1

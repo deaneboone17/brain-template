@@ -40,8 +40,7 @@ def get_credentials():
 def fetch_today_events(creds):
     service = build("calendar", "v3", credentials=creds)
 
-    tz_offset = datetime.timezone(datetime.timedelta(hours=-4))  # EDT
-    now = datetime.datetime.now(tz_offset)
+    now = datetime.datetime.now().astimezone()
     start_of_day = now.replace(hour=0, minute=0, second=0, microsecond=0)
     end_of_day = now.replace(hour=23, minute=59, second=59, microsecond=0)
 

@@ -1,0 +1,12 @@
+## Credentials — never commit
+second-brain/tools/credentials.json
+second-brain/tools/*token*.json
+
+## Logs
+second-brain/tools/*.log
+
+## Staging (transient ingest files)
+second-brain/wiki/_staging/
+
+## Local overrides
+second-brain/CLAUDE.local.md

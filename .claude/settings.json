@@ -1,0 +1,27 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"[Current time: $(date '+%A, %B %d %Y %I:%M %p %Z')]\""
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "BRAIN_DIR_PLACEHOLDER/second-brain/tools/token-hook.sh"
+          }
+        ]
+      }
+    ]
+  },
+  "statusCommand": "BRAIN_DIR_PLACEHOLDER/second-brain/tools/statusbar.sh"
+}

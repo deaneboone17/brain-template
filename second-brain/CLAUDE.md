@@ -17,6 +17,12 @@ A second brain has four layers. All four must be present for a new brain deploym
 
 ## Automation Layer
 
+> **Platform note (Windows vs Linux/Mac).** Every `tools/*.sh` below has a `tools/*.ps1`
+> equivalent for Windows, and cron is replaced by **Task Scheduler** (tasks `BrainMorningBrief`
+> + `BrainStaleCheck`). On Windows: run `setup.ps1` instead of `setup.sh`; the timestamp/token/
+> status hooks use PowerShell; ingest/extract/convolife are `pwsh -File tools\<name>.ps1`. When
+> referencing a tool below, use the `.ps1` form on Windows. Full Windows guide: `docs/WINDOWS.md`.
+
 ### Components
 | Component | Type | What it does | Config |
 |---|---|---|---|

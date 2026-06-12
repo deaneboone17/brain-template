@@ -1,0 +1,27 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -Command \"Write-Output ('[Current time: ' + (Get-Date -Format 'dddd, MMMM dd yyyy hh:mm tt') + ']')\""
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"REPO_DIR_PLACEHOLDER/second-brain/tools/token-hook.ps1\""
+          }
+        ]
+      }
+    ]
+  },
+  "statusCommand": "powershell -NoProfile -ExecutionPolicy Bypass -File \"REPO_DIR_PLACEHOLDER/second-brain/tools/statusbar.ps1\""
+}

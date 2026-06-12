@@ -20,11 +20,11 @@ A Claude Code-powered personal second brain and executive assistant. Drop this r
 |---|---|---|
 | [Claude Code](https://github.com/anthropics/claude-code) | `npm install -g @anthropic/claude-code` | The engine. Must be authenticated. |
 | Git | Pre-installed on most systems | For version control and backup |
-| Bash | Pre-installed on Linux/Mac | All scripts are bash |
-| Python 3 | `sudo apt install python3` or pre-installed | Required for token tracking (statusbar, token-hook) |
-| jq | `sudo apt install jq` | Required by convolife.sh and statusbar.sh |
-| unzip | `sudo apt install unzip` | Required by extract-office.sh for PPTX/DOCX |
-| cron | Pre-installed on Linux/Mac | For daily brief + staleness check |
+| Bash **or** PowerShell | Bash pre-installed on Linux/Mac; **PowerShell** built into Windows | Linux/Mac use the `.sh` tools; Windows uses the `.ps1` tools (see [docs/WINDOWS.md](docs/WINDOWS.md)) |
+| Python 3 | `sudo apt install python3` or pre-installed | Linux: token tracking (statusbar, token-hook). **Windows: not required** — those are native PowerShell; Python only for optional Calendar |
+| jq | `sudo apt install jq` | Linux only (convolife.sh, statusbar.sh). **Not needed on Windows** |
+| unzip | `sudo apt install unzip` | Linux only (extract-office.sh). **Not needed on Windows** (.NET zip reader) |
+| cron **or** Task Scheduler | cron on Linux/Mac; Task Scheduler on Windows | For daily brief + staleness check |
 
 ### Optional
 | Dependency | Install | Notes |
@@ -53,15 +53,25 @@ Or use this as a GitHub template: click **Use this template** at the top of the 
 
 ### 2. Run the setup script
 
+**Linux / Mac:**
 ```bash
 bash setup.sh
 ```
 
+**Windows (PowerShell):**
+```powershell
+powershell -ExecutionPolicy Bypass -File setup.ps1
+```
+
 This will:
-- Substitute your absolute path into all shell scripts
-- Set permissions on all tools
-- Add morning-brief (7am daily) and stale-check (7:05am Sundays) to your crontab
+- Substitute your absolute path into the tool scripts
+- (Linux/Mac) set permissions; (Windows) write the PowerShell `.claude\settings.json`
+- Add morning-brief (7am daily) and stale-check (7:05am Sundays) — to **cron** on Linux/Mac, or
+  **Task Scheduler** on Windows (`BrainMorningBrief` / `BrainStaleCheck`)
 - Create an initial `context/today.md`
+
+> **Windows users:** the full Windows layer (PowerShell ports of every tool, Task Scheduler jobs,
+> native token tracking — no WSL/jq/unzip/cron needed) is documented in **[docs/WINDOWS.md](docs/WINDOWS.md)**.
 
 ### 3. Connect to GitHub (recommended)
 
